@@ -53,7 +53,7 @@ repository_response = do_post("repositories/",
 repository_id = repository_response['id']
 
 # ssh private key example
-with open('dense_node_general_key', 'r') as myfile:
+with open('ssh_key', 'r') as myfile:
         privateKey=myfile.read()
 machine_credential_response = do_post("machine_credentials/",
      {"name": "node-key",
