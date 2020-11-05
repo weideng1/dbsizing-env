@@ -69,46 +69,39 @@ cluster_profile_response = do_post("config_profiles/",
     {"name": cluster_name,
      "datastax-version": dse_ver,
      "json" : {
+        "10-write-prom-conf" : {
+           "enabled" : True
+        },
+        "jvm8-server-options" : {
+           "additional-jvm-opts" : [
+              "-Ddse.io.aio.enabled=false"
+           ],
+           "number_of_gc_log_files" : 20,
+           "log_gc" : True
+        },
+        "cassandra-yaml" : {
+           "tpc_cores" : 14,
+           "hinted_handoff_throttle_in_kb" : 10240,
+           "allocate_tokens_for_local_replication_factor" : 3,
+           "file_cache_size_in_mb" : 512,
+           "phi_convict_threshold" : 12,
+           "concurrent_compactors" : 4,
+           "compaction_throughput_mb_per_sec" : 64,
+           "num_tokens" : 8
+        },
+        "jvm-server-options" : {
+           "jmx-connection-type" : "remote-no-auth",
+           "max_heap_size" : "24g",
+           "initial_heap_size" : "24g"
+        },
         "dse-yaml" : {
-           "cql_slow_log_options" : {
-              "enabled" : False
-           },
            "enable_health_based_routing" : False,
            "authentication_options" : {
               "enabled" : False
+           },
+           "cql_slow_log_options" : {
+              "enabled" : False
            }
-        },
-        "jvm-options" : {
-           "log_gc" : True,
-           "number_of_gc_log_files" : 20,
-           "max_heap_size" : "8g",
-           "jmx-connection-type" : "remote-no-auth",
-           "additional-jvm-opts" : [
-                  "-Ddse.io.aio.enabled=false"
-               ],
-           "initial_heap_size" : "8g"
-        },
-        "logback-xml" : {
-           "loggers" : [
-              {
-                 "level" : "INFO",
-                 "name" : "com.thinkaurelius.thrift"
-              }
-           ]
-        },
-        "cassandra-yaml" : {
-           "compaction_throughput_mb_per_sec" : 16,
-           "allocate_tokens_for_local_replication_factor" : 3,
-           "num_tokens" : 8,
-           "concurrent_compactors" : 1,
-           "tpc_cores" : 2,
-           "endpoint_snitch" : "org.apache.cassandra.locator.GossipingPropertyFileSnitch",
-           "file_cache_size_in_mb" : 512,
-           "phi_convict_threshold" : 12,
-           "hinted_handoff_throttle_in_kb" : 5120
-        },
-        "10-write-prom-conf" : {
-           "enabled" : True
         }
      },
      "comment": 'LCM provisioned %s' % cluster_name})
