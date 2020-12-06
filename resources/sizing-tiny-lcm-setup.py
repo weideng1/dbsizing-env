@@ -80,19 +80,19 @@ cluster_profile_response = do_post("config_profiles/",
            "log_gc" : True
         },
         "cassandra-yaml" : {
-           "tpc_cores" : 14,
+           "tpc_cores" : 2,
            "hinted_handoff_throttle_in_kb" : 10240,
            "allocate_tokens_for_local_replication_factor" : 3,
            "file_cache_size_in_mb" : 512,
            "phi_convict_threshold" : 12,
-           "concurrent_compactors" : 4,
-           "compaction_throughput_mb_per_sec" : 64,
+           "concurrent_compactors" : 1,
+           "compaction_throughput_mb_per_sec" : 16,
            "num_tokens" : 8
         },
         "jvm-server-options" : {
            "jmx-connection-type" : "remote-no-auth",
-           "max_heap_size" : "24g",
-           "initial_heap_size" : "24g"
+           "max_heap_size" : "8g",
+           "initial_heap_size" : "8g"
         },
         "dse-yaml" : {
            "enable_health_based_routing" : False,
